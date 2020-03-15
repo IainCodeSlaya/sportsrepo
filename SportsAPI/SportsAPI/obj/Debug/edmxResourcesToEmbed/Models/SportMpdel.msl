@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SportSafeModelStoreContainer" CdmEntityContainer="SportSafeEntities">
+    <EntitySetMapping Name="Sports">
+      <EntityTypeMapping TypeName="SportSafeModel.Sport">
+        <MappingFragment StoreEntitySet="Sport">
+          <ScalarProperty Name="SportID" ColumnName="SportID" />
+          <ScalarProperty Name="SportName" ColumnName="SportName" />
+          <ScalarProperty Name="SportDescription" ColumnName="SportDescription" />
+          <ScalarProperty Name="TypeSportID" ColumnName="TypeSportID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SportSeasons">
+      <EntityTypeMapping TypeName="SportSafeModel.SportSeason">
+        <MappingFragment StoreEntitySet="SportSeason">
+          <ScalarProperty Name="SportSeasonID" ColumnName="SportSeasonID" />
+          <ScalarProperty Name="SportSeasonStart" ColumnName="SportSeasonStart" />
+          <ScalarProperty Name="SportSeasonEnd" ColumnName="SportSeasonEnd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SportSponsors">
+      <EntityTypeMapping TypeName="SportSafeModel.SportSponsor">
+        <MappingFragment StoreEntitySet="SportSponsors">
+          <ScalarProperty Name="SportSponsorID" ColumnName="SportSponsorID" />
+          <ScalarProperty Name="SportSponsorName" ColumnName="SportSponsorName" />
+          <ScalarProperty Name="SportID" ColumnName="SportID" />
+          <ScalarProperty Name="TypeSportID" ColumnName="TypeSportID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeSports">
+      <EntityTypeMapping TypeName="SportSafeModel.TypeSport">
+        <MappingFragment StoreEntitySet="TypeSport">
+          <ScalarProperty Name="TypeSportID" ColumnName="TypeSportID" />
+          <ScalarProperty Name="TypeSportName" ColumnName="TypeSportName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

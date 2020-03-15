@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SportSafeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Sport">
+    <Key>
+      <PropertyRef Name="SportID" />
+    </Key>
+    <Property Name="SportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SportName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SportDescription" Type="varchar" MaxLength="100" />
+    <Property Name="TypeSportID" Type="int" />
+  </EntityType>
+  <EntityType Name="SportSeason">
+    <Key>
+      <PropertyRef Name="SportSeasonID" />
+    </Key>
+    <Property Name="SportSeasonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SportSeasonStart" Type="varchar" MaxLength="20" />
+    <Property Name="SportSeasonEnd" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="SportSponsors">
+    <Key>
+      <PropertyRef Name="SportSponsorID" />
+    </Key>
+    <Property Name="SportSponsorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SportSponsorName" Type="varchar" MaxLength="20" />
+    <Property Name="SportID" Type="int" />
+    <Property Name="TypeSportID" Type="int" />
+  </EntityType>
+  <EntityType Name="TypeSport">
+    <Key>
+      <PropertyRef Name="TypeSportID" />
+    </Key>
+    <Property Name="TypeSportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeSportName" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK__Sport__TypeSport__3B75D760">
+    <End Role="TypeSport" Type="Self.TypeSport" Multiplicity="0..1" />
+    <End Role="Sport" Type="Self.Sport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeSport">
+        <PropertyRef Name="TypeSportID" />
+      </Principal>
+      <Dependent Role="Sport">
+        <PropertyRef Name="TypeSportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SportSpon__Sport__3E52440B">
+    <End Role="Sport" Type="Self.Sport" Multiplicity="0..1" />
+    <End Role="SportSponsors" Type="Self.SportSponsors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sport">
+        <PropertyRef Name="SportID" />
+      </Principal>
+      <Dependent Role="SportSponsors">
+        <PropertyRef Name="SportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SportSpon__TypeS__3F466844">
+    <End Role="TypeSport" Type="Self.TypeSport" Multiplicity="0..1" />
+    <End Role="SportSponsors" Type="Self.SportSponsors" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeSport">
+        <PropertyRef Name="TypeSportID" />
+      </Principal>
+      <Dependent Role="SportSponsors">
+        <PropertyRef Name="TypeSportID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SportSafeModelStoreContainer">
+    <EntitySet Name="Sport" EntityType="Self.Sport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SportSeason" EntityType="Self.SportSeason" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SportSponsors" EntityType="Self.SportSponsors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypeSport" EntityType="Self.TypeSport" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Sport__TypeSport__3B75D760" Association="Self.FK__Sport__TypeSport__3B75D760">
+      <End Role="TypeSport" EntitySet="TypeSport" />
+      <End Role="Sport" EntitySet="Sport" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SportSpon__Sport__3E52440B" Association="Self.FK__SportSpon__Sport__3E52440B">
+      <End Role="Sport" EntitySet="Sport" />
+      <End Role="SportSponsors" EntitySet="SportSponsors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SportSpon__TypeS__3F466844" Association="Self.FK__SportSpon__TypeS__3F466844">
+      <End Role="TypeSport" EntitySet="TypeSport" />
+      <End Role="SportSponsors" EntitySet="SportSponsors" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

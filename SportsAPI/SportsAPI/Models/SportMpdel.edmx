@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SportSafeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Sport">
+          <Key>
+            <PropertyRef Name="SportID" />
+          </Key>
+          <Property Name="SportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SportName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SportDescription" Type="varchar" MaxLength="100" />
+          <Property Name="TypeSportID" Type="int" />
+        </EntityType>
+        <EntityType Name="SportSeason">
+          <Key>
+            <PropertyRef Name="SportSeasonID" />
+          </Key>
+          <Property Name="SportSeasonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SportSeasonStart" Type="varchar" MaxLength="20" />
+          <Property Name="SportSeasonEnd" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SportSponsors">
+          <Key>
+            <PropertyRef Name="SportSponsorID" />
+          </Key>
+          <Property Name="SportSponsorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SportSponsorName" Type="varchar" MaxLength="20" />
+          <Property Name="SportID" Type="int" />
+          <Property Name="TypeSportID" Type="int" />
+        </EntityType>
+        <EntityType Name="TypeSport">
+          <Key>
+            <PropertyRef Name="TypeSportID" />
+          </Key>
+          <Property Name="TypeSportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeSportName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK__Sport__TypeSport__3B75D760">
+          <End Role="TypeSport" Type="Self.TypeSport" Multiplicity="0..1" />
+          <End Role="Sport" Type="Self.Sport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeSport">
+              <PropertyRef Name="TypeSportID" />
+            </Principal>
+            <Dependent Role="Sport">
+              <PropertyRef Name="TypeSportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SportSpon__Sport__3E52440B">
+          <End Role="Sport" Type="Self.Sport" Multiplicity="0..1" />
+          <End Role="SportSponsors" Type="Self.SportSponsors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sport">
+              <PropertyRef Name="SportID" />
+            </Principal>
+            <Dependent Role="SportSponsors">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SportSpon__TypeS__3F466844">
+          <End Role="TypeSport" Type="Self.TypeSport" Multiplicity="0..1" />
+          <End Role="SportSponsors" Type="Self.SportSponsors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeSport">
+              <PropertyRef Name="TypeSportID" />
+            </Principal>
+            <Dependent Role="SportSponsors">
+              <PropertyRef Name="TypeSportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SportSafeModelStoreContainer">
+          <EntitySet Name="Sport" EntityType="Self.Sport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SportSeason" EntityType="Self.SportSeason" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SportSponsors" EntityType="Self.SportSponsors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeSport" EntityType="Self.TypeSport" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Sport__TypeSport__3B75D760" Association="Self.FK__Sport__TypeSport__3B75D760">
+            <End Role="TypeSport" EntitySet="TypeSport" />
+            <End Role="Sport" EntitySet="Sport" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SportSpon__Sport__3E52440B" Association="Self.FK__SportSpon__Sport__3E52440B">
+            <End Role="Sport" EntitySet="Sport" />
+            <End Role="SportSponsors" EntitySet="SportSponsors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SportSpon__TypeS__3F466844" Association="Self.FK__SportSpon__TypeS__3F466844">
+            <End Role="TypeSport" EntitySet="TypeSport" />
+            <End Role="SportSponsors" EntitySet="SportSponsors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SportSafeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Sport">
+          <Key>
+            <PropertyRef Name="SportID" />
+          </Key>
+          <Property Name="SportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SportName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SportDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TypeSportID" Type="Int32" />
+          <NavigationProperty Name="TypeSport" Relationship="Self.FK__Sport__TypeSport__3B75D760" FromRole="Sport" ToRole="TypeSport" />
+          <NavigationProperty Name="SportSponsors" Relationship="Self.FK__SportSpon__Sport__3E52440B" FromRole="Sport" ToRole="SportSponsors" />
+        </EntityType>
+        <EntityType Name="SportSeason">
+          <Key>
+            <PropertyRef Name="SportSeasonID" />
+          </Key>
+          <Property Name="SportSeasonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SportSeasonStart" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SportSeasonEnd" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SportSponsor">
+          <Key>
+            <PropertyRef Name="SportSponsorID" />
+          </Key>
+          <Property Name="SportSponsorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SportSponsorName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SportID" Type="Int32" />
+          <Property Name="TypeSportID" Type="Int32" />
+          <NavigationProperty Name="Sport" Relationship="Self.FK__SportSpon__Sport__3E52440B" FromRole="SportSponsors" ToRole="Sport" />
+          <NavigationProperty Name="TypeSport" Relationship="Self.FK__SportSpon__TypeS__3F466844" FromRole="SportSponsors" ToRole="TypeSport" />
+        </EntityType>
+        <EntityType Name="TypeSport">
+          <Key>
+            <PropertyRef Name="TypeSportID" />
+          </Key>
+          <Property Name="TypeSportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeSportName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sports" Relationship="Self.FK__Sport__TypeSport__3B75D760" FromRole="TypeSport" ToRole="Sport" />
+          <NavigationProperty Name="SportSponsors" Relationship="Self.FK__SportSpon__TypeS__3F466844" FromRole="TypeSport" ToRole="SportSponsors" />
+        </EntityType>
+        <Association Name="FK__Sport__TypeSport__3B75D760">
+          <End Role="TypeSport" Type="Self.TypeSport" Multiplicity="0..1" />
+          <End Role="Sport" Type="Self.Sport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeSport">
+              <PropertyRef Name="TypeSportID" />
+            </Principal>
+            <Dependent Role="Sport">
+              <PropertyRef Name="TypeSportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SportSpon__Sport__3E52440B">
+          <End Role="Sport" Type="Self.Sport" Multiplicity="0..1" />
+          <End Role="SportSponsors" Type="Self.SportSponsor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sport">
+              <PropertyRef Name="SportID" />
+            </Principal>
+            <Dependent Role="SportSponsors">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SportSpon__TypeS__3F466844">
+          <End Role="TypeSport" Type="Self.TypeSport" Multiplicity="0..1" />
+          <End Role="SportSponsors" Type="Self.SportSponsor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeSport">
+              <PropertyRef Name="TypeSportID" />
+            </Principal>
+            <Dependent Role="SportSponsors">
+              <PropertyRef Name="TypeSportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SportSafeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Sports" EntityType="Self.Sport" />
+          <EntitySet Name="SportSeasons" EntityType="Self.SportSeason" />
+          <EntitySet Name="SportSponsors" EntityType="Self.SportSponsor" />
+          <EntitySet Name="TypeSports" EntityType="Self.TypeSport" />
+          <AssociationSet Name="FK__Sport__TypeSport__3B75D760" Association="Self.FK__Sport__TypeSport__3B75D760">
+            <End Role="TypeSport" EntitySet="TypeSports" />
+            <End Role="Sport" EntitySet="Sports" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SportSpon__Sport__3E52440B" Association="Self.FK__SportSpon__Sport__3E52440B">
+            <End Role="Sport" EntitySet="Sports" />
+            <End Role="SportSponsors" EntitySet="SportSponsors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SportSpon__TypeS__3F466844" Association="Self.FK__SportSpon__TypeS__3F466844">
+            <End Role="TypeSport" EntitySet="TypeSports" />
+            <End Role="SportSponsors" EntitySet="SportSponsors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SportSafeModelStoreContainer" CdmEntityContainer="SportSafeEntities">
+          <EntitySetMapping Name="Sports">
+            <EntityTypeMapping TypeName="SportSafeModel.Sport">
+              <MappingFragment StoreEntitySet="Sport">
+                <ScalarProperty Name="SportID" ColumnName="SportID" />
+                <ScalarProperty Name="SportName" ColumnName="SportName" />
+                <ScalarProperty Name="SportDescription" ColumnName="SportDescription" />
+                <ScalarProperty Name="TypeSportID" ColumnName="TypeSportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SportSeasons">
+            <EntityTypeMapping TypeName="SportSafeModel.SportSeason">
+              <MappingFragment StoreEntitySet="SportSeason">
+                <ScalarProperty Name="SportSeasonID" ColumnName="SportSeasonID" />
+                <ScalarProperty Name="SportSeasonStart" ColumnName="SportSeasonStart" />
+                <ScalarProperty Name="SportSeasonEnd" ColumnName="SportSeasonEnd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SportSponsors">
+            <EntityTypeMapping TypeName="SportSafeModel.SportSponsor">
+              <MappingFragment StoreEntitySet="SportSponsors">
+                <ScalarProperty Name="SportSponsorID" ColumnName="SportSponsorID" />
+                <ScalarProperty Name="SportSponsorName" ColumnName="SportSponsorName" />
+                <ScalarProperty Name="SportID" ColumnName="SportID" />
+                <ScalarProperty Name="TypeSportID" ColumnName="TypeSportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeSports">
+            <EntityTypeMapping TypeName="SportSafeModel.TypeSport">
+              <MappingFragment StoreEntitySet="TypeSport">
+                <ScalarProperty Name="TypeSportID" ColumnName="TypeSportID" />
+                <ScalarProperty Name="TypeSportName" ColumnName="TypeSportName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
